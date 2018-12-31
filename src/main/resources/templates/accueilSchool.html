@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"  rel="stylesheet">
+        <style>
+            .bbody{
+                width: 100%;
+                margin-left: 1%;
+                margin-right: 1%;
+            }
+            .bbody >div {
+                display: inline-block;
+            }
+            .menu-left{
+                width: 15%;
+            }
+            .menu-right{
+                width: 15%;
+            }
+            .menu-centre{
+                width: 67%;
+            }
+            .add{
+                width: 34%;
+                float: right;
+                text-align: center;
+            }
+            .add-button{
+                width: 100%;
+            }
+            .titre{
+                margin-bottom: 18px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-info">
+            <p th:if="${school.name!=null}" class="navbar-brand" href="#" th:text="${school.name}">School Name</p>
+            <button th:if="${school.name==null}" class="add-button btn" style="width: 20%;" >modifiez le nom de l'école</button>
+        </nav>
+        <div class="bbody">
+            <div class="menu-left">
+                <div class="titre">
+                    <span>List classes</span>
+                    <span class="add btn-primary">
+                        <button class="add-button btn" >+</button>
+                    </span>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">Cras justo odio</li>
+                    <li class="list-group-item list-group-item-info">Dapibus ac facilisis in</li>
+                    <li class="list-group-item list-group-item-info">Morbi leo risus</li>
+                    <li class="list-group-item list-group-item-info">Porta ac consectetur ac</li>
+                    <li class="list-group-item list-group-item-info">Vestibulum at eros</li>
+                </ul>
+            </div>
+            <div class="menu-centre">
+                
+            </div>
+            <div class="menu-right">
+                <div class="titre">
+                    <span>Photographers</span>
+                    <span class=" add  btn-primary">
+                        <button class="add-button btn" >+</button>
+                    </span>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">Cras justo odio</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Morbi leo risus</li>
+                    <li class="list-group-item">Porta ac consectetur ac</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
