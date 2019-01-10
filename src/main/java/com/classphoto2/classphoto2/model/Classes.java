@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Classes.findAll", query = "SELECT c FROM Classes c")
     , @NamedQuery(name = "Classes.findById", query = "SELECT c FROM Classes c WHERE c.id = :id")
-    , @NamedQuery(name = "Classes.findByAnneeetude", query = "SELECT c FROM Classes c WHERE c.anneeetude = :anneeetude")})
+    , @NamedQuery(name = "Classes.findByAnneeetude", query = "SELECT c FROM Classes c WHERE c.label = :label")})
 public class Classes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,8 +46,11 @@ public class Classes implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "anneeetude")
-    private String anneeetude;
+    @Column(name = "label")
+    private String label;
+    
+    @Column(name="anneeScolaire")
+    private String anneeScolaire;
     @JoinColumn(name = "schooladmin_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Schooladmins schooladminId;
@@ -57,13 +60,15 @@ public class Classes implements Serializable {
     public Classes() {
     }
 
+   
+    
     public Classes(Integer id) {
         this.id = id;
     }
 
-    public Classes(Integer id, String anneeetude) {
+    public Classes(Integer id, String label) {
         this.id = id;
-        this.anneeetude = anneeetude;
+        this.label = label;
     }
 
     public Integer getId() {
@@ -74,13 +79,23 @@ public class Classes implements Serializable {
         this.id = id;
     }
 
-    public String getAnneeetude() {
-        return anneeetude;
+    public String getLabel() {
+        return label;
     }
 
-    public void setAnneeetude(String anneeetude) {
-        this.anneeetude = anneeetude;
+    public void setLabel(String label) {
+        this.label = label;
     }
+
+    public String getAnneeScolaire() {
+        return anneeScolaire;
+    }
+
+    public void setAnneeScolaire(String anneeScolaire) {
+        this.anneeScolaire = anneeScolaire;
+    }
+
+   
 
     public Schooladmins getSchooladminId() {
         return schooladminId;

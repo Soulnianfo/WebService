@@ -48,12 +48,12 @@ public class Children implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "first name")
+    @Column(name = "first_name")
     private String firstName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "last name")
+    @Column(name = "last_name")
     private String lastName;
     @Basic(optional = false)
     @NotNull

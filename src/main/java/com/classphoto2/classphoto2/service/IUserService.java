@@ -5,7 +5,9 @@
  */
 package com.classphoto2.classphoto2.service;
 
+import com.classphoto2.classphoto2.DTO.ChildDTO;
 import com.classphoto2.classphoto2.DTO.UserDTO;
+import com.classphoto2.classphoto2.model.Children;
 import com.classphoto2.classphoto2.model.Users;
 
 /**
@@ -14,4 +16,5 @@ import com.classphoto2.classphoto2.model.Users;
  */
 public interface IUserService {
     Users CreateNewUser(UserDTO user);
+    Children CreateNewChild(ChildDTO dto);
 }

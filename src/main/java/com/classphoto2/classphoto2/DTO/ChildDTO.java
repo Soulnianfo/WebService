@@ -5,8 +5,8 @@
  */
 package com.classphoto2.classphoto2.DTO;
 
-import com.classphoto2.classphoto2.PasswordMatches;
 import com.classphoto2.classphoto2.ValidEmail;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotEmpty;
@@ -17,16 +17,20 @@ import javax.validation.constraints.Size;
  *
  * @author Souleymane
  */
-@PasswordMatches
-public class UserDTO {
+public class ChildDTO {
     
     @NotNull
-    @NotEmpty
-    private String name;
+    private String firstName;
+    
+    @NotNull
+    private String lastName;
     
     @NotNull
     @NotEmpty
     private String username;
+    
+    @NotNull
+    private int classesId;
     
     @ValidEmail
     @NotNull
@@ -55,14 +59,22 @@ public class UserDTO {
     
     private Integer numero;
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-    
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -71,20 +83,20 @@ public class UserDTO {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getMatchingPassword() {
@@ -126,7 +138,13 @@ public class UserDTO {
     public void setNumero(Integer numero) {
         this.numero = numero;
     }
-    
 
+    public int getClassesId() {
+        return classesId;
+    }
+
+    public void setClassesId(int classesId) {
+        this.classesId = classesId;
+    }
     
 }

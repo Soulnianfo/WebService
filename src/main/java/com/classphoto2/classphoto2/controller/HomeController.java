@@ -34,11 +34,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
     @Autowired
     UserRepository userRepo;
-     @Autowired UserService service;
-    @GetMapping("/")
+    @Autowired UserService service;
+    @GetMapping("/registration")
     public String registreForm(WebRequest request, Model model) {
         model.addAttribute("userdto", new UserDTO());
         return "registreForm";
+    }
+
+    @GetMapping("/")
+    public String redirLogin(WebRequest request, Model model) {
+        model.addAttribute("userdto", new UserDTO());
+        return "redirect: /login";
     }
 
     @GetMapping("/login")

@@ -35,16 +35,18 @@ public class SchoolAdminController {
         
         if(userDetailsService.userCt.getRole().equals("ADMIN")){
             
-             model.addAttribute("school",repo.findByEmail(userDetailsService.userCt.getEmail()));
-             System.out.println(" name "+repo.findByEmail(userDetailsService.userCt.getEmail()).getName());
+            model.addAttribute("school",repo.findByEmail(userDetailsService.userCt.getEmail()));
             return "accueilSchool";
         }
         if(userDetailsService.userCt.getRole().equals("USER")){
+            
             return "parent";
         }
         if(userDetailsService.userCt.getRole().equals("PHOTO")){
+           
             return "photograph";
         }
+        
       return "";
     }
     

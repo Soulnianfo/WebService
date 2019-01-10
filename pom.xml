@@ -80,6 +80,7 @@
                     <artifactId>jquery</artifactId>
                     <version>3.2.1</version>
                 </dependency>
+                
 	 <dependency>
 	  <groupId>org.eclipse.persistence</groupId>
 	  <artifactId>org.eclipse.persistence.antlr</artifactId>
@@ -197,7 +198,12 @@
             <artifactId>spring-security-oauth2-resource-server</artifactId>
             <version>5.1.2.RELEASE</version>
         </dependency>
-
+	 <dependency>
+	  <groupId>com.googlecode.json-simple</groupId>
+	  <artifactId>json-simple</artifactId>
+	  <version>1.1.1</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 
 	<build>
@@ -207,6 +213,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
                                
 			</plugin>
+                        
 		</plugins>
 	</build>
 

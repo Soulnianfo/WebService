@@ -28,6 +28,7 @@ public class MyUserDetailService implements UserDetailsService{
     @Autowired
     UserRepository repo;
     public final PasswordEncoder encoder = new BCryptPasswordEncoder();
+    
     public final Users userCt = new Users();
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

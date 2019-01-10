@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -40,8 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/img/**",
                             "/registration",
                             "/school/accueilSchool",
+                            "/api/getAllClass",
                             "/webjars/**").permitAll()
-                  
+                    .antMatchers("/api/**").hasRole("ADMIN")
                     .antMatchers("/school/**").hasRole("ADMIN")
                     .antMatchers("/photograph/**").hasRole("PHOTO")
                     .antMatchers("/parent/**").hasRole("USER")
@@ -50,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage("/login")
                     .defaultSuccessUrl("/school/accueilSchool").passwordParameter("password").usernameParameter("username")
-                    .failureUrl("/access-denied")
+                    //.failureUrl("/access-denied")
                     .permitAll()
                 .and()
                 .logout()
@@ -62,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                     .accessDeniedHandler(accessDeniedHandler);
+        //http.addFilterAfter(new CsrfTokenResponseHeaderBindingFilter(), CsrfFilter.class);
                 
     }
 
