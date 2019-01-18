@@ -45,10 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
+       
+    	http.authorizeRequests()
                     .antMatchers(
                             "/",
+                            "/picture",
                             "/js/**",
                             "/css/**",
                             "/img/**",
@@ -83,6 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                     .accessDeniedHandler(accessDeniedHandler);
+                    http.csrf().disable();
         //http.addFilterAfter(new CsrfTokenResponseHeaderBindingFilter(), CsrfFilter.class);
                 //"/school/accueilSchool"
     }

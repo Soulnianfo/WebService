@@ -16,12 +16,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
  * @author Souleymane
  */
 @Controller
+
 public class ClasseController {
     @Autowired
     MyUserDetailService userDetailsService;
@@ -31,6 +33,8 @@ public class ClasseController {
     
     @Autowired
     ClassesRepository repoClasse;
+    
+   
     
     @GetMapping("/formClasse")
     public String getForm(Model model){
@@ -48,6 +52,8 @@ public class ClasseController {
         Newclasse.setSchooladminId(admin);
         repoClasse.save(Newclasse);
         model.addAttribute("school",admin);
+        
+        
         return "accueilSchool";
     }
 }

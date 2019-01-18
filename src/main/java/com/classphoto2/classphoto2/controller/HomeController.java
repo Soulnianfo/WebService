@@ -36,7 +36,7 @@ public class HomeController {
     UserRepository userRepo;
     @Autowired UserService service;
     @GetMapping("/registration")
-    public String registreForm(WebRequest request, Model model) {
+    public String registreForm(WebRequest request, Model model,BindingResult result) {
         model.addAttribute("userdto", new UserDTO());
         return "registreForm";
     }
@@ -59,23 +59,29 @@ public class HomeController {
         return "Success";
     }
     
+   
+    
+    
     @RequestMapping(method=RequestMethod.POST,  path = "/registration", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String registre(@ModelAttribute("userdto") @Valid UserDTO user, BindingResult result) {
-      
-        if (!result.hasErrors()) {
-            Users registered = createUserAccount(user, result);
+    public String registre(@ModelAttribute("userdto") @Valid UserDTO user) {
+    	 System.out.println(" 0");
+       
+        	System.out.println(" 01");
+            createUserAccount(user);
             System.out.println("ICI");
-        }
+      
         
         return "redirect:/login";
     }
-    private Users createUserAccount(UserDTO accountDto, BindingResult result) {
+    private void createUserAccount(UserDTO accountDto) {
+	        System.out.println(" 1");
+
+        int registered = 0;
         
-        Users registered = null;
+        registered = service.CreateNewUser(accountDto);
         
-           registered = service.CreateNewUser(accountDto);
         
-        return registered;
+       
     }
 
     @GetMapping("/access-denied")
