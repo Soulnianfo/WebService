@@ -42,9 +42,9 @@ public class SchoolAdminController {
             
             return "parent";
         }
-        if(userDetailsService.userCt.getRole().equals("PHOTO")){
+        if(userDetailsService.userCt.getRole().equals("PHOTOG")){
            
-            return "photograph";
+            return "redirect:/photograph";
         }
         
       return "";

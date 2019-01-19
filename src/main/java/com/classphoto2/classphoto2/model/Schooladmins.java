@@ -5,12 +5,14 @@
  */
 package com.classphoto2.classphoto2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -61,7 +63,8 @@ public class Schooladmins implements Serializable {
     @JoinColumn(name = "photograph_id", referencedColumnName = "id")
     @ManyToOne
     private Photographers photographId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "schooladminId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "schooladminId", fetch= FetchType.LAZY)
+    @JsonIgnore
     private Collection<Classes> classesCollection;
 
     public Schooladmins() {

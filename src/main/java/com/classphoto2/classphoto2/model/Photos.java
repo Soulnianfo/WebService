@@ -56,6 +56,18 @@ public class Photos implements Serializable {
     @JoinColumn(name = "classes_id", referencedColumnName = "id")
     @ManyToOne
     private Classes classesId;
+    @Basic(optional = false)
+    @Column(name = "data")
+    private byte[] data;
+    
+    @Basic(optional = false)
+    @Column(name = "label")
+    private String label;
+    
+    @Basic(optional = false)
+    @Column(name = "filetype")
+    private String Filetype;
+    
     @JoinColumn(name = "photograph_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Photographers photographId;
@@ -144,5 +156,31 @@ public class Photos implements Serializable {
     public String toString() {
         return "com.classphoto2.classphoto2.model.Photos[ id=" + id + " ]";
     }
+
+	
+
+	public byte[] getData() {
+		return data;
+	}
+
+	public void setData(byte[] data) {
+		this.data = data;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public String getFiletype() {
+		return Filetype;
+	}
+
+	public void setFiletype(String filetype) {
+		Filetype = filetype;
+	}
     
 }

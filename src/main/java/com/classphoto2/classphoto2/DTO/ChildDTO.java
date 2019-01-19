@@ -6,6 +6,7 @@
 package com.classphoto2.classphoto2.DTO;
 
 import com.classphoto2.classphoto2.ValidEmail;
+import com.classphoto2.classphoto2.model.Classes;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Lob;
@@ -29,8 +30,8 @@ public class ChildDTO {
     @NotEmpty
     private String username;
     
-    @NotNull
-    private int classesId;
+
+    private Classes classesId;
     
     @ValidEmail
     @NotNull
@@ -139,12 +140,14 @@ public class ChildDTO {
         this.numero = numero;
     }
 
-    public int getClassesId() {
+    public Classes getClassesId() {
         return classesId;
     }
 
-    public void setClassesId(int classesId) {
+    public void setClassesId(Classes classesId) {
         this.classesId = classesId;
     }
+
+   
     
 }

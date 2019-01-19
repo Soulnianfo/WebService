@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"  rel="stylesheet">
+        
+         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<style>
+			 .lesClasses{
+                margin-bottom: 1px;
+                background: aliceblue;
+                font-size: 10px;
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+            }
+		</style>
+    </head>
+    <body>
+        
+        <div id="app">
+    		<nav class="navbar navbar-light bg-info">
+            
+	            
+	            <span class=" add-button " type="button">
+	                <button class="btn btn-primary mb-2" v-on:click="uploadPhotoForClasseShow"> ajouter photos classe </button>
+	            </span>
+	            <span class=" add-button " type="button" v-on:click="uploadPhotoForIndivShow">
+	               <button class="btn btn-primary mb-2">  ajouter photos d'un élève</button>
+	            </span>
+            
+            
+        	</nav>
+        	<div class="container" >
+		    	<div class="row">
+		    		<div class="col-md-3">
+		    			<div th:each="school : ${photograph.schooladminsCollection}">
+		    				<div>[[${school.name}]]</div>
+		    				<div class="lesClasses" th:each="class : ${school.classesCollection}">
+		    					[[${class.label}]]
+		    				</div>
+		    			</div>
+		    		</div>
+		    		<div class="col-md-8">
+			    		<form v-show="upload" method="POST" enctype="multipart/form-data" :action="action">
+							<div class="form-group">
+							    <label for="exampleFormControlFile1">Example file input</label>
+							    <input type="file" class="form-control-file" name="files" id="exampleFormControlFile1">
+							 </div>
+							 <div class="form-group">
+							    
+							    <input type="submit" class="btn btn-primary mb-2" value="Ajouter" >
+							 </div>
+							 
+						
+						</form>
+			    	
+			    	
+				    	<div th:each="image : ${photos}">
+				    		<img alt="" th:src="@{'http://localhost:8080/image-response-entity/'+${image.id}}" style="width: 100px;">
+				    	</div>
+		    		</div>
+			       	
+		    	</div>
+		</div>
+		
+	</div>
+		 <script>
+            
+           new Vue({
+                el:"#app",
+                data(){
+                    return {
+                        upload: false,
+                        action: "/addphoto?proprietaire=classe",
+                    }
+                },
+                mounted(){
+                    
+                },
+                methods:{
+                	uploadPhotoForClasseShow(){
+                		this.action = "/addphoto?proprietaire=classe"
+                		if(!this.upload){this.upload = true;}else{this.upload = false;}
+                      	
+                    },
+                	uploadPhotoForIndivShow(){
+                    	this.action = "/addphoto?proprietaire=indiv"
+                		if(!this.upload){this.upload = true;}else{this.upload = false;}
+                      	
+                    }
+                   
+                    
+                }
+            });
+        </script>
+        
+    </body>
+</html>

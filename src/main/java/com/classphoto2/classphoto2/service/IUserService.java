@@ -5,9 +5,13 @@
  */
 package com.classphoto2.classphoto2.service;
 
+import java.util.List;
+
 import com.classphoto2.classphoto2.DTO.ChildDTO;
 import com.classphoto2.classphoto2.DTO.UserDTO;
 import com.classphoto2.classphoto2.model.Children;
+import com.classphoto2.classphoto2.model.Photographers;
+import com.classphoto2.classphoto2.model.Schooladmins;
 import com.classphoto2.classphoto2.model.Users;
 
 /**
@@ -17,4 +21,5 @@ import com.classphoto2.classphoto2.model.Users;
 public interface IUserService {
     Users CreateNewUser(UserDTO user);
     Children CreateNewChild(ChildDTO dto);
+    Photographers CreateNewPhotograph(ChildDTO dto, List<Schooladmins> ads );
 }

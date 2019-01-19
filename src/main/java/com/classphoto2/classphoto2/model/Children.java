@@ -14,7 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -56,9 +58,9 @@ public class Children implements Serializable {
     @Column(name = "last_name")
     private String lastName;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "classes_id")
-    private int classesId;
+    @JoinColumn(name = "classes_id", referencedColumnName = "id")
+    @ManyToOne
+    private Classes classesId;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -71,6 +73,14 @@ public class Children implements Serializable {
     @OneToMany(mappedBy = "childId")
     private Collection<Photos> photosCollection;
 
+    public Classes getClassesId() {
+        return classesId;
+    }
+
+    public void setClassesId(Classes classesId) {
+        this.classesId = classesId;
+    }
+
     public Children() {
     }
 
@@ -78,7 +88,7 @@ public class Children implements Serializable {
         this.id = id;
     }
 
-    public Children(Integer id, String firstName, String lastName, int classesId, String email) {
+    public Children(Integer id, String firstName, String lastName, Classes classesId, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -110,14 +120,7 @@ public class Children implements Serializable {
         this.lastName = lastName;
     }
 
-    public int getClassesId() {
-        return classesId;
-    }
-
-    public void setClassesId(int classesId) {
-        this.classesId = classesId;
-    }
-
+  
     public String getEmail() {
         return email;
     }

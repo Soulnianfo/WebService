@@ -39,13 +39,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/js/**",
                             "/css/**",
                             "/img/**",
+                            "/photograph",
                             "/registration",
                             "/school/accueilSchool",
-                            "/api/getAllClass",
+                            "/api/getAllClass","/api/getClassPhotos",
                             "/webjars/**").permitAll()
                     .antMatchers("/api/**").hasRole("ADMIN")
                     .antMatchers("/school/**").hasRole("ADMIN")
-                    .antMatchers("/photograph/**").hasRole("PHOTO")
+                    .antMatchers("/photograph/**").hasRole("PHOTOG")
                     .antMatchers("/parent/**").hasRole("USER")
                     .anyRequest().authenticated()
                 .and()

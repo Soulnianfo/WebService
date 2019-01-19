@@ -38,6 +38,7 @@ public class MyUserDetailService implements UserDetailsService{
         userCt.setUsername(user.getUsername());
         userCt.setRole(user.getRole());
         userCt.setEmail(user.getEmail());
+        userCt.setId(user.getId());
         if (user == null) {
             throw new UsernameNotFoundException(
               "No user found with username: "+ username);

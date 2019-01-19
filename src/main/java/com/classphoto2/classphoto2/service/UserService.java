@@ -7,14 +7,19 @@ package com.classphoto2.classphoto2.service;
 
 import com.classphoto2.classphoto2.DTO.ChildDTO;
 import com.classphoto2.classphoto2.DTO.UserDTO;
+import com.classphoto2.classphoto2.controller.PhotographController;
 import com.classphoto2.classphoto2.model.Address;
 import com.classphoto2.classphoto2.model.Children;
+import com.classphoto2.classphoto2.model.Photographers;
 import com.classphoto2.classphoto2.model.Schooladmins;
 import com.classphoto2.classphoto2.model.Users;
 import com.classphoto2.classphoto2.repository.AddressRepository;
 import com.classphoto2.classphoto2.repository.ChildrenRepositorie;
+import com.classphoto2.classphoto2.repository.PhotographRepository;
 import com.classphoto2.classphoto2.repository.SchooladminRepository;
 import com.classphoto2.classphoto2.repository.UserRepository;
+
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -37,7 +42,8 @@ public class UserService implements IUserService {
     SchooladminRepository repoSchool;
     @Autowired
     AddressRepository repoAddress;
-     
+    @Autowired
+    PhotographRepository repophotograph;
     @Autowired
     ChildrenRepositorie repochild;
     
@@ -104,6 +110,39 @@ public class UserService implements IUserService {
     
         repo.save(user);
         return repochild.save(child);
+    }
+    
+    
+    @Override
+    public Photographers CreateNewPhotograph(ChildDTO dto, List<Schooladmins> ads ) {
+        if (emailExist(dto.getEmail())) {   
+         throw new UnsupportedOperationException("Cette adresse mail eiste déjà.");
+       }
+        System.out.println(" Child ");
+       Users user = new Users();
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setMatchingPassword(dto.getMatchingPassword());
+        user.setUsername(dto.getUsername());
+        user.setRole("PHOTOG");
+        
+        Photographers photograph = new Photographers();
+       
+        photograph.setFirstName(dto.getFirstName());
+        photograph.setLastName(dto.getLastName());
+        photograph.setEmail(dto.getEmail());
+        //photograph.setSchooladminsCollection(ads);
+      
+        Address address = new Address();
+        address.setCodePostale(dto.getCodePostale());
+        address.setNumero(dto.getNumero());
+        address.setVille(dto.getVille());
+        address.setRue(dto.getRue());
+        user.setAddress(address);
+    
+        Users u = repo.save(user);
+        photograph.setAddressId(u.getAddress().getId());
+        return repophotograph.save(photograph);
     }
     
     
