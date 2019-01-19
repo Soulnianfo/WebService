@@ -47,13 +47,17 @@ public class UserService implements IUserService {
     @Autowired
     ChildrenRepositorie repochild;
     
+    @Autowired
+    MyUserDetailService service;
+    
     @Override
-    public Users CreateNewUser(UserDTO userdto) {
+    public int CreateNewUser(UserDTO userdto) {
         
         if (emailExist(userdto.getEmail())) {   
-          return null;
+          return -1;
        }
        Users user = new Users();
+       System.out.println(" 2");
         user.setEmail(userdto.getEmail());
         user.setPassword(userdto.getPassword());
         user.setMatchingPassword(userdto.getMatchingPassword());
@@ -62,6 +66,7 @@ public class UserService implements IUserService {
         Schooladmins school = new Schooladmins();
         school.setEmail(userdto.getEmail());
         school.setName(userdto.getName());
+        
         repoSchool.save(school);
         
         Address address = new Address();
@@ -70,7 +75,10 @@ public class UserService implements IUserService {
         address.setVille(userdto.getVille());
         address.setRue(userdto.getRue());
         user.setAddress(address);
-        return repo.save(user);
+        
+        service.saveUserComputingDerivedPassword(user, user.getPassword());
+        return 0;
+       
     }
     
     private boolean emailExist(String email){

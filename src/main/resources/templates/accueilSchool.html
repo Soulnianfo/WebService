@@ -14,7 +14,8 @@ and open the template in the editor.
 
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <style>
+        
+      <style>
             .bbody{
                 width: 100%;
                 margin-left: 1%;
@@ -67,6 +68,7 @@ and open the template in the editor.
         </style>
     </head>
     <body >
+          
         <div id="app">
         <span id="id" th:text="${school.id}" style="display: none;"></span>
         <nav class="navbar navbar-light bg-info">
@@ -87,6 +89,14 @@ and open the template in the editor.
                 <a th:href="@{'/child?id='+${school.id}}">Ajout un élève +</a>
             </span>
             </div>
+          
+           
+           <div class="pull-right">
+		        <form th:action="@{/logout}">
+		    		<button type="submit" class="btn btn-primary">Log Out</button>
+		    		
+				</form>   
+         </div>
         </nav>
         <div class="bbody container">
             <div class="row">

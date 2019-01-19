@@ -7,6 +7,7 @@ package com.classphoto2.classphoto2.service;
 
 import com.classphoto2.classphoto2.model.Users;
 import com.classphoto2.classphoto2.repository.UserRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,34 @@ public class MyUserDetailService implements UserDetailsService{
     public final PasswordEncoder encoder = new BCryptPasswordEncoder();
     
     public final Users userCt = new Users();
+    
+    
+    public void saveUserComputingDerivedPassword(Users u, String rawPassword) {
+        setComputingDerivedPassword(u, rawPassword);
+	    System.out.println("  5");
+
+        repo.save(u);
+     }
+ 	
+ 	  public void setComputingDerivedPassword(Users u, String rawPassword) {
+ 		 System.out.println("  6");
+ 	        String codedPassword = encoder.encode(rawPassword);
+ 	        System.out.println(" the password is :"+codedPassword);
+ 	        u.setPassword(codedPassword);
+ 	    }
+    
+    
+    
+    
+    
+    
+    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("User name : "+username);
+        System.out.println("User name 1: "+username);
       
         Users user = repo.findByUsername(username);
+        System.out.println("User name 2: "+user.getUsername());
         userCt.setUsername(user.getUsername());
         userCt.setRole(user.getRole());
         userCt.setEmail(user.getEmail());
@@ -51,7 +75,7 @@ public class MyUserDetailService implements UserDetailsService{
         roles.add(user.getRole());
         return  new org.springframework.security.core.userdetails.User
           (user.getUsername(),
-          encoder.encode(user.getPassword()),
+          user.getPassword(),
           enabled, accountNonExpired, 
           credentialsNonExpired,
           accountNonLocked, 
