@@ -115,14 +115,14 @@ public class UserService implements IUserService {
         address.setVille(dto.getVille());
         address.setRue(dto.getRue());
         user.setAddress(address);
-    
-        repo.save(user);
+        service.saveUserComputingDerivedPassword(user,user.getPassword());
+        //repo.save(user);
         return repochild.save(child);
     }
     
     
     @Override
-    public Photographers CreateNewPhotograph(ChildDTO dto, List<Schooladmins> ads ) {
+    public Photographers CreateNewPhotograph(ChildDTO dto ) {
         if (emailExist(dto.getEmail())) {   
          throw new UnsupportedOperationException("Cette adresse mail eiste déjà.");
        }
@@ -139,17 +139,16 @@ public class UserService implements IUserService {
         photograph.setFirstName(dto.getFirstName());
         photograph.setLastName(dto.getLastName());
         photograph.setEmail(dto.getEmail());
-        //photograph.setSchooladminsCollection(ads);
-      
+       
         Address address = new Address();
         address.setCodePostale(dto.getCodePostale());
         address.setNumero(dto.getNumero());
         address.setVille(dto.getVille());
         address.setRue(dto.getRue());
         user.setAddress(address);
-    
-        Users u = repo.save(user);
-        photograph.setAddressId(u.getAddress().getId());
+        
+        service.saveUserComputingDerivedPassword(user,user.getPassword());
+      
         return repophotograph.save(photograph);
     }
     

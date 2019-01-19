@@ -21,5 +21,5 @@ import com.classphoto2.classphoto2.model.Users;
 public interface IUserService {
     int CreateNewUser(UserDTO user);
     Children CreateNewChild(ChildDTO dto);
-    Photographers CreateNewPhotograph(ChildDTO dto, List<Schooladmins> ads );
+    Photographers CreateNewPhotograph(ChildDTO dto);
 }

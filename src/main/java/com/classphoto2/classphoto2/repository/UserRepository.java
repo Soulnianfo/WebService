@@ -6,7 +6,10 @@
 package com.classphoto2.classphoto2.repository;
 
 import com.classphoto2.classphoto2.model.Users;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -15,8 +18,8 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserRepository extends CrudRepository<Users,Integer>{
 
     public Users findByEmail(String email);
-
-    public Users findByUsername(String username);
+    @Query("SELECT u FROM Users u WHERE u.username = :username")
+    public Users findByUsername(@Param("username") String username);
 
    
     

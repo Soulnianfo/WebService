@@ -176,4 +176,6 @@ public class Photographers implements Serializable {
         return "com.classphoto2.classphoto2.model.Photographers[ id=" + id + " ]";
     }
     
+    
+    
 }

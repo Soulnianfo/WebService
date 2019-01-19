@@ -77,9 +77,12 @@ public class PhotographController {
 	    public String register(Model model, ChildDTO dto){
 	       Schooladmins admin = repo.findByEmail(userDetailsService.userCt.getEmail());
 	       Photographers photograph = null;
-	       List<Schooladmins> ads = new ArrayList();
-	       ads.add(admin);
-	       photograph = serviceUser.CreateNewPhotograph(dto,ads);
+	     
+	       photograph = serviceUser.CreateNewPhotograph(dto);
+	       if(photograph!=null) {
+	    	   admin.setPhotographId(photograph);
+	    	   repo.save(admin);
+	       }
 	       model.addAttribute("school",admin);
 	        return "/accueilSchool";
 	    }
