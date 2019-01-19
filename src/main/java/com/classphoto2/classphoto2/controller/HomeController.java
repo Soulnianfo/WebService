@@ -36,7 +36,7 @@ public class HomeController {
     UserRepository userRepo;
     @Autowired UserService service;
     @GetMapping("/registration")
-    public String registreForm(WebRequest request, Model model,BindingResult result) {
+    public String registreForm(WebRequest request, Model model) {
         model.addAttribute("userdto", new UserDTO());
         return "registreForm";
     }
