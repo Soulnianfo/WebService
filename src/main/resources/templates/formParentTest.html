@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+ <link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"  rel="stylesheet">
+        <link href="/main.css"  rel="stylesheet">
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div class="container" >
+    
+    <div  class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Create a parent account</h1>
+            <form id="app" th:object="${parentdto}">
+                 <div class="form-group">
+                    <label>First Name</label>
+                    <input id="firstName" class="form-control" type="text" th:field="*{firstName}" placeholder="Prénom"/>
+                    <p th:each="error: ${#fields.errors('firstName')}"
+                      th:text="${error}">Validation error</p>
+                </div>
+                <div class="form-group">
+                    <label>Nom</label>
+                    <input id="lastName" class="form-control" type="text" th:field="*{lastName}" placeholder="Nom"/>
+                    <p th:each="error: ${#fields.errors('lastName')}"
+                      th:text="${error}">Validation error</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="inputState">Choisir Enfant </label>
+                    <select id="selectChild" class="form-control" th:field="*{childId.id}"  multiple>
+                      <option th:each="child: ${childrens}" th:text="${child.firstName}" th:value="${child.id}"></option>
+                    </select>
+                    
+                </div>
+               
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input id="email" class="form-control" type="email" th:field="*{email}" placeholder="Email"/>
+                    <p th:each="error: ${#fields.errors('email')}"
+                      th:text="${error}">Validation error</p>
+                </div>
+                <div class="form-group">
+                    <label >Pseudo</label>
+                    <input  id="username" class="form-control" th:field="*{username}" placeholder="Username"/>
+                    <p th:each="error: ${#fields.errors('username')}"
+                      th:text="${error}">Validation error</p>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input id="password" class="form-control" type="password" th:field="*{password}" placeholder="Password"/>
+                    <p th:each="error: ${#fields.errors('password')}"
+                      th:text="${error}">Validation error</p>
+                </div>
+                <div class="form-group">
+                    <label>confirmé</label>
+                    <input id="confirmPassword" class="form-control" type="password" th:field="*{matchingPassword}"/>
+                </div>
+                <div>Adresse</div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Numero</label>
+                        <input id="numAddr" type="number" class="form-control"  th:field="*{numero}">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">Rue</label>
+                        <input id="rueAddr"  type="text" class="form-control"  th:field="*{rue}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Code Postale</label>
+                        <input id="postalAddr" type="number" class="form-control"  th:field="*{codePostale}">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">Ville</label>
+                        <select id="villeAddr" class="form-control" th:field="*{ville}">
+                          <option value="St-Etienne">St-Etienne</option>
+                          <option value="ok">...</option>
+                        </select>
+                    </div>
+                </div>
+                
+                
+                     <button class="col-sm-6 col-sm-offset-3 btn btn-info" v-on:click="addParent">Submit</button>
+                
+                
+            </form>
+        </div>
+    </div>
+</div>
+ <script>
+            
+           new Vue({
+                el:"#app",
+                data(){
+                    return {
+                       
+                      
+                     firstName : null,
+                	 lastName : null,
+                	 email: null,
+                	 username :null,
+               	     password : null,
+                	 Confirmpassword : null,
+                	 numAdd : null,
+                	 rueAddr :null,
+                	 postalAddr : null,
+                	 villeAddr : null,
+                    }
+                },
+                mounted(){
+                    
+                },
+                methods:{
+                  
+                    
+                    addParent(){
+                    	 this.firstName= document.getElementById("firstName").value;
+                    	 this.lastName= document.getElementById("lastName").value;
+                    	 this.email= document.getElementById("email").value;
+                    	 this.username= document.getElementById("username").value;
+                    	 this.password= document.getElementById("password").value;
+                    	 this.Confirmpassword= document.getElementById("confirmPassword").value;
+                    	 this.numAddr= document.getElementById("numAddr").value;
+                    	 this.rueAddr= document.getElementById("rueAddr").value;
+                    	 this.postalAddr= document.getElementById("postalAddr").value;
+                    	 this.villeAddr= document.getElementById("villeAddr").value;
+
+
+                    	axios.post('/api/addParent',
+                    			{
+                    		         firstName: this.firstName,
+                    		         lastName : this.lastName,
+                    		         email : this.email,
+                    				 username : this.username,
+                    	            password :this.password,
+                    	            Confirmpassword : this.Confirmpassword,
+                    	            numAddr : this.numAddr,
+                    	            rueAddr :  this.rueAddr,
+                    	            postalAddr : this.postalAddr,
+                    	            villeAddr : this.villeAddr
+                    		         
+                    	       }).then(response=>{
+                                   
+                                   console.log("passed");
+                               }) 
+                    }
+                    
+                }
+            });
+        </script>
+</body>
+</html>

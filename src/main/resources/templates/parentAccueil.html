@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<head>
+<meta charset="ISO-8859-1">
+ <link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"  rel="stylesheet">
+<title>Parent Accueil</title>
+</head>
+<body>
+
+          <div class="pull-right">
+		        <form th:action="@{/logout}">
+		    		<button type="submit" class="btn btn-primary">Log Out</button>
+		    		
+				</form>   
+          </div>
+        <h1>Your childs </h1>
+        <div class="menu-centre col-md-8">
+                    <span>List of yours child : </span>
+                     <div th:each="child : ${listChild}" >
+                        <a href="#" th:text="${child.firstName}"></a>
+                     <div/>
+          <div>
+</body>
+</html>

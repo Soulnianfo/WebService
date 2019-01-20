@@ -7,14 +7,21 @@ package com.classphoto2.classphoto2.service;
 
 import com.classphoto2.classphoto2.DTO.ChildDTO;
 import com.classphoto2.classphoto2.DTO.UserDTO;
+import com.classphoto2.classphoto2.DTO.parentDTO;
 import com.classphoto2.classphoto2.controller.PhotographController;
 import com.classphoto2.classphoto2.model.Address;
 import com.classphoto2.classphoto2.model.Children;
+import com.classphoto2.classphoto2.model.Genre;
+import com.classphoto2.classphoto2.model.Parents;
+import com.classphoto2.classphoto2.model.ParentsChildren;
 import com.classphoto2.classphoto2.model.Photographers;
 import com.classphoto2.classphoto2.model.Schooladmins;
 import com.classphoto2.classphoto2.model.Users;
 import com.classphoto2.classphoto2.repository.AddressRepository;
 import com.classphoto2.classphoto2.repository.ChildrenRepositorie;
+import com.classphoto2.classphoto2.repository.GenreRepo;
+import com.classphoto2.classphoto2.repository.ParentChildrenRepo;
+import com.classphoto2.classphoto2.repository.ParentRepo;
 import com.classphoto2.classphoto2.repository.PhotographRepository;
 import com.classphoto2.classphoto2.repository.SchooladminRepository;
 import com.classphoto2.classphoto2.repository.UserRepository;
@@ -39,6 +46,10 @@ public class UserService implements IUserService {
     @Autowired
     UserRepository repo;
     @Autowired
+    ParentChildrenRepo repoParentChild;
+    @Autowired
+    ParentRepo repoParent;
+    @Autowired
     SchooladminRepository repoSchool;
     @Autowired
     AddressRepository repoAddress;
@@ -46,6 +57,9 @@ public class UserService implements IUserService {
     PhotographRepository repophotograph;
     @Autowired
     ChildrenRepositorie repochild;
+    
+    @Autowired
+    GenreRepo genreRepo;
     
     @Autowired
     MyUserDetailService service;
@@ -88,6 +102,54 @@ public class UserService implements IUserService {
             return true;
         }
         return false;
+    }
+    
+    public Parents CreateNewParent(parentDTO dto) {
+        if (emailExist(dto.getEmail())) {   
+         throw new UnsupportedOperationException("Cette adresse mail eiste déjà.");
+       }
+        System.out.println(" Parent 1 ");
+      
+     
+       
+       Parents parent = new Parents();
+       System.out.println("parent first Name "+dto.getFirstName());
+       System.out.println("parent last Name "+dto.getLastName());
+
+       parent.setFirstName(dto.getFirstName());
+       parent.setLastName(dto.getLastName());
+       parent.setEmail(dto.getEmail());
+       
+      
+       Parents par = repoParent.save(parent);
+       
+       System.out.println("parent registred !!!");
+       //ParentsChildren parentChild = new ParentsChildren();
+       
+       ParentsChildren parentsChild = new ParentsChildren();
+       parentsChild.setChildId(repochild.findOneById(dto.getChildId().getId()));
+       parentsChild.setParentId(par);
+       repoParentChild.save(parentsChild);
+        
+       System.out.println(" Parent 2 ");
+       
+      
+        Address address = new Address();
+        address.setCodePostale(dto.getCodePostale());
+        address.setNumero(dto.getNumero());
+        address.setVille(dto.getVille());
+        address.setRue(dto.getRue());
+        
+        Users user = new Users();
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setMatchingPassword(dto.getMatchingPassword());
+        user.setUsername(dto.getUsername());
+        user.setRole("USER");
+        user.setAddress(address);
+        service.saveUserComputingDerivedPassword(user,user.getPassword());
+        //repo.save(user);
+        return par;
     }
 
     @Override

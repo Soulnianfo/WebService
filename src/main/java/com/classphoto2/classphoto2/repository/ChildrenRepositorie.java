@@ -6,6 +6,9 @@
 package com.classphoto2.classphoto2.repository;
 
 import com.classphoto2.classphoto2.model.Children;
+
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -13,5 +16,7 @@ import org.springframework.data.repository.CrudRepository;
  * @author Souleymane
  */
 public interface ChildrenRepositorie extends CrudRepository<Children,Integer> {
+    Children findOneById(Integer id);
+   
     
 }

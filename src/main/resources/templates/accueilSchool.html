@@ -27,6 +27,9 @@ and open the template in the editor.
             .row >div {
                 
             }
+            .lab {
+ 			 margin-right: 15em;
+			}
             .menu-left{
                 border-right: 1px solid black;
             }
@@ -115,7 +118,7 @@ and open the template in the editor.
 
                 </div>
                 <div class="menu-centre col-md-8">
-                    <span>{{classeLabel}}</span>
+                    <span>{{classN}} {{classeLabel}}</span>
                     <span>
                         <select  class="form-control listChild" v-model="childSeleted">
                             <option selected >All children</option>
@@ -150,7 +153,8 @@ and open the template in the editor.
                         VueChildren : null,
                         classSeleted: null,
                         childSeleted: null,
-                        classeLabel : null
+                        classeLabel : null,
+                        classN : null
                     }
                 },
                 mounted(){
@@ -169,6 +173,7 @@ and open the template in the editor.
                     getClasse(id, label){
                         axios.get('/api/getClassPhotos?id='+id).then(response=>{
                            this.classeLabel = label
+                           this.classN = "the class name is : "
                            this.Vuephotos = response.data.photos;
                            this.VueChildren = response.data.children;
                            console.log(response.data)

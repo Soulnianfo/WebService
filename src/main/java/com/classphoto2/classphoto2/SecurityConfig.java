@@ -57,8 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/registration",
                             "/school/accueilSchool",
                             "/api/getAllClass","/api/getClassPhotos",
-                            "/webjars/**").permitAll()
-                    .antMatchers("/api/**").hasRole("ADMIN")
+                            "/webjars/**","/swagger-ui.html/**").permitAll()
+                   
                     .antMatchers("/school/**").hasRole("ADMIN")
                     .antMatchers("/photograph/**").hasRole("PHOTOG")
                     .antMatchers("/parent/**").hasRole("USER")

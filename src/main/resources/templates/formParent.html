@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<head>
+<meta charset="ISO-8859-1">
+<link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"  rel="stylesheet">
+<title>Create parent</title>
+</head>
+<body>
+
+ <div class="container" >
+    
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Create a parent account</h1>
+            <form accesskey="/registrationParent" th:action="@{/registrationParent}" method="POST" th:object="${parentdto}">
+                 <div class="form-group">
+                    <label>Prenom</label>
+                    <input class="form-control" type="text" th:field="*{firstName}" placeholder="Prénom"/>
+                    <p th:each="error: ${#fields.errors('firstName')}"
+                      th:text="${error}">Validation error</p>
+                </div>
+                <div class="form-group">
+                    <label>Nom</label>
+                    <input class="form-control" type="text" th:field="*{lastName}" placeholder="Nom"/>
+                    <p th:each="error: ${#fields.errors('lastName')}"
+                      th:text="${error}">Validation error</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="inputState">Choisir Enfant </label>
+                    <select id="inputState" class="form-control" th:field="*{childId.id}" v-model="childSeleted" multiple>
+                      <option th:each="child: ${childrens}" th:text="${child.firstName}" th:value="${child.id}"></option>
+                    </select>
+                    
+                </div>
+                 <div class="form-group">
+                    <label for="inputState">Genre </label>
+                    <select id="inputState" class="form-control" th:field="*{genreId}">
+                      <option  th:text="Homme" th:value="${genreId}">Homme</option>
+                      <option  th:text="Femme" th:value="${genreId}">Femme</option>
+        
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input class="form-control" type="email" th:field="*{email}" placeholder="Email"/>
+                    <p th:each="error: ${#fields.errors('email')}"
+                      th:text="${error}">Validation error</p>
+                </div>
+                <div class="form-group">
+                    <label >Pseudo</label>
+                    <input class="form-control" th:field="*{username}" placeholder="Username"/>
+                    <p th:each="error: ${#fields.errors('username')}"
+                      th:text="${error}">Validation error</p>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input class="form-control" type="password" th:field="*{password}" placeholder="Password"/>
+                    <p th:each="error: ${#fields.errors('password')}"
+                      th:text="${error}">Validation error</p>
+                </div>
+                <div class="form-group">
+                    <label>confirmé</label>
+                    <input class="form-control" type="password" th:field="*{matchingPassword}"/>
+                </div>
+                <div>Adresse</div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Numero</label>
+                        <input type="number" class="form-control" id="inputCity" th:field="*{numero}">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">Rue</label>
+                        <input type="text" class="form-control" id="inputCity" th:field="*{rue}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Code Postale</label>
+                        <input type="number" class="form-control" id="" th:field="*{codePostale}">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">Ville</label>
+                        <select id="inputState" class="form-control" th:field="*{ville}">
+                          <option value="St-Etienne">St-Etienne</option>
+                          <option value="ok">...</option>
+                        </select>
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                     <button class="col-sm-6 col-sm-offset-3 btn btn-info" type="submit" value="submit">Submit</button>
+                 </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

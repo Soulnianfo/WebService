@@ -7,6 +7,8 @@ package com.classphoto2.classphoto2.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -64,7 +66,7 @@ public class Parents implements Serializable {
     @Column(name = "email")
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentId")
-    private Collection<ParentsChildren> parentsChildrenCollection;
+    private List<ParentsChildren> parentsChildrenCollection;
     @JoinColumn(name = "genre", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Genre genre;
@@ -121,7 +123,7 @@ public class Parents implements Serializable {
     }
 
     public void setParentsChildrenCollection(Collection<ParentsChildren> parentsChildrenCollection) {
-        this.parentsChildrenCollection = parentsChildrenCollection;
+        this.parentsChildrenCollection = (List<ParentsChildren>) parentsChildrenCollection;
     }
 
     public Genre getGenre() {
