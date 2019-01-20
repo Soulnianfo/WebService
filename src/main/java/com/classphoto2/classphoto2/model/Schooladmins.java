@@ -63,7 +63,7 @@ public class Schooladmins implements Serializable {
     @JoinColumn(name = "photograph_id", referencedColumnName = "id")
     @ManyToOne
     private Photographers photographId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "schooladminId", fetch= FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "schooladminId", fetch= FetchType.EAGER)
     @JsonIgnore
     private Collection<Classes> classesCollection;
 

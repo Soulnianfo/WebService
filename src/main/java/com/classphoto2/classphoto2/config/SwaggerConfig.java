@@ -20,7 +20,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport{
 	    @Bean
 	    public Docket jobApi() {
 	        return new Docket(DocumentationType.SWAGGER_2)
-	                .select()                 .apis(RequestHandlerSelectors.basePackage("com.classphoto2.classphoto2.controller")).paths(PathSelectors.regex("/api.*")).build();
+	                .select()                 .apis(RequestHandlerSelectors.basePackage("com.classphoto2.classphoto2.controller")).paths(PathSelectors.any()).build();
 	                
 	    }
 	  @Override

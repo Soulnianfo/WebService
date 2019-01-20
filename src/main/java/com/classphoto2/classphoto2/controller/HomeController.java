@@ -16,6 +16,11 @@ import org.springframework.web.context.request.WebRequest;
 import com.classphoto2.classphoto2.repository.UserRepository;
 import com.classphoto2.classphoto2.service.UserService;
 import com.google.inject.internal.Errors;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +40,8 @@ public class HomeController {
     @Autowired
     UserRepository userRepo;
     @Autowired UserService service;
+    
+    @ApiOperation(value = "Create a school account",response = Iterable.class)
     @GetMapping("/registration")
     public String registreForm(WebRequest request, Model model) {
         model.addAttribute("userdto", new UserDTO());
@@ -64,11 +71,8 @@ public class HomeController {
     
     @RequestMapping(method=RequestMethod.POST,  path = "/registration", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String registre(@ModelAttribute("userdto") @Valid UserDTO user) {
-    	 System.out.println(" 0");
-       
-        	System.out.println(" 01");
+    	
             createUserAccount(user);
-            System.out.println("ICI");
       
         
         return "redirect:/login";

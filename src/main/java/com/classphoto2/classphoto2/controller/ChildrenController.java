@@ -12,6 +12,11 @@ import com.classphoto2.classphoto2.repository.ChildrenRepositorie;
 import com.classphoto2.classphoto2.repository.SchooladminRepository;
 import com.classphoto2.classphoto2.service.MyUserDetailService;
 import com.classphoto2.classphoto2.service.UserService;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +36,8 @@ public class ChildrenController {
     @Autowired UserService service;
     @Autowired
     ChildrenRepositorie repochild;
+    
+    @ApiOperation(value = "register form for a child",response = Iterable.class)
     @GetMapping("/child")
     public String form(Model model){
         model.addAttribute("childdto", new ChildDTO());
@@ -38,6 +45,13 @@ public class ChildrenController {
         return "formChild";
     }
     
+    @ApiOperation(value = "Create a new child account",response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully creation of the account "),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
     @PostMapping("/registrationChild")
     public String register(Model model, ChildDTO dto){
        Schooladmins admin = repo.findByEmail(userDetailsService.userCt.getEmail());

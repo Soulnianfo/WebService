@@ -6,6 +6,7 @@
 package com.classphoto2.classphoto2.controller;
 
 import com.classphoto2.classphoto2.model.Children;
+import com.classphoto2.classphoto2.model.Parents;
 import com.classphoto2.classphoto2.model.ParentsChildren;
 import com.classphoto2.classphoto2.model.Schooladmins;
 import com.classphoto2.classphoto2.repository.ChildrenRepositorie;
@@ -13,6 +14,10 @@ import com.classphoto2.classphoto2.repository.ParentChildrenRepo;
 import com.classphoto2.classphoto2.repository.ParentRepo;
 import com.classphoto2.classphoto2.repository.SchooladminRepository;
 import com.classphoto2.classphoto2.service.MyUserDetailService;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -45,6 +50,8 @@ public class SchoolAdminController {
 	 @Autowired
 	 ParentChildrenRepo repochildParnt;
     
+
+	    @ApiOperation(value = "Welcome page",response = Iterable.class)
     @GetMapping("/accueilSchool")
     private String accueil(Model model,Authentication auth ){
         
@@ -55,18 +62,24 @@ public class SchoolAdminController {
         }
         if(userDetailsService.userCt.getRole().equals("USER")){
         	
-        	  java.util.List<ParentsChildren> col = repochildParnt.findAllByparentId(repoParent.findByFirstName(auth.getName()));
+        	 
+
+        	   Parents parnt =repoParent.findByFirstName(auth.getName());
+        	 // java.util.List<ParentsChildren> col = repochildParnt.findAllByparentId(parnt);
+        	 
+       	
+/*
         	  java.util.List<Children>listChild = new ArrayList();
-   	       for (ParentsChildren e: col) {
-   	          
+   	     for (ParentsChildren e: col) {
+   	    	  System.out.println("03");
    	           listChild.add(repochild.findOneById(e.getChildId().getId()));
-   	           
+   	        System.out.println("04");
    	     
    	    	  
-   	       }
-   	       
+   	       }*/
+   	    
    	 
-   	    model.addAttribute("listChild",listChild);
+   	    model.addAttribute("listChild",repochild.findAll());
             return "parentAccueil";
         }
         if(userDetailsService.userCt.getRole().equals("PHOTOG")){

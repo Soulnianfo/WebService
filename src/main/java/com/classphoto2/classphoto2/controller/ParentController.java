@@ -24,6 +24,9 @@ import com.classphoto2.classphoto2.service.UserService;
 import com.google.inject.spi.Element;
 
 import antlr.collections.List;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @Controller
 public class ParentController {
@@ -42,6 +45,9 @@ public class ParentController {
 
 	 @Autowired
 	    MyUserDetailService userDetailsService;
+	 
+	 @ApiOperation(value = "register form for parent",response = Iterable.class)
+
 	 @GetMapping("/addParent")
 	    public String form(Model model){
 	        model.addAttribute("parentdto", new parentDTO());
@@ -49,6 +55,13 @@ public class ParentController {
 	        return "formParent";
 	    }
 	 
+	 @ApiOperation(value = "Create a parent account",response = Iterable.class)
+	    @ApiResponses(value = {
+	            @ApiResponse(code = 200, message = "Successfully creation of the account "),
+	            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+	            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+	            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	    })
 	 @PostMapping("/registrationParent")
 	    public String register(Model model, parentDTO dto){
 	     //  Schooladmins admin = repo.findByEmail(userDetailsService.userCt.getEmail());

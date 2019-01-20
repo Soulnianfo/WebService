@@ -43,6 +43,10 @@ import com.classphoto2.classphoto2.service.ServicePhotos;
 import com.classphoto2.classphoto2.service.StorageService;
 import com.classphoto2.classphoto2.service.UserService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @Controller
 public class PhotographController {
 	public Integer adminId=null;
@@ -63,7 +67,7 @@ public class PhotographController {
 	 
 	 @Autowired UserService serviceUser;
 	    
-	
+	 @ApiOperation(value = "Register form for Photographer",response = Iterable.class)
 	@GetMapping("/addphotograph")
 	public String addphotograph(Model model, @Param("id") Integer adminId) {
 		 this.adminId = adminId;
@@ -73,6 +77,13 @@ public class PhotographController {
 		return "photographForm";
 	}
 	
+	 @ApiOperation(value = "Create Photographer account",response = Iterable.class)
+	    @ApiResponses(value = {
+	            @ApiResponse(code = 200, message = "Successfully creation of the account "),
+	            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+	            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+	            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	    })
 	 @PostMapping("/registrationPhotograph")
 	    public String register(Model model, ChildDTO dto){
 	       Schooladmins admin = repo.findByEmail(userDetailsService.userCt.getEmail());
@@ -99,7 +110,13 @@ public class PhotographController {
 	}
 	
 	
-	
+	    @ApiOperation(value = "Add a photo",response = Iterable.class)
+	    @ApiResponses(value = {
+	            @ApiResponse(code = 200, message = "Successfully add of photo "),
+	            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+	            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+	            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	    })
 	@PostMapping("/addphoto")
 	public String addphotos(@RequestParam("files") MultipartFile[] files) throws IOException {
 		int i;
